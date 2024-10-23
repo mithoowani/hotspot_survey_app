@@ -1,3 +1,8 @@
+"""
+Streamlit web app for analyzing data from Internal Medicine CTU Hotpsot surveys
+Requirements: see requirements.txt, Python 3.10.5
+"""
+
 import streamlit as st
 from plotting_functions import *
 
@@ -12,7 +17,12 @@ def hide_streamlit_header_footer():
 	st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
-def clean_staff_data(survey_file):
+def clean_staff_data(survey_file) -> pd.DataFrame:
+	"""
+	Reads in data from staff survey, renames and drops irrelevant columns and null rows
+	:param survey_file: path to staff survey file (xlsx, or xls)
+	:return: pandas DataFrame, cleaned staff survey
+	"""
 	staff_col_names = ['date',
 					   'loc_5west_yn',
 					   'loc_8west_yn',
@@ -38,7 +48,12 @@ def clean_staff_data(survey_file):
 	return Staff
 
 
-def clean_learner_data(survey_file):
+def clean_learner_data(survey_file) -> pd.DataFrame:
+	"""
+	Reads in data from learner survey, renames and drops irrelevant columns and null rows
+	:param survey_file: path to learner survey file (xlsx, or xls)
+	:return: pandas DataFrame, cleaned learner survey
+	"""
 	learner_col_names = ['date',
 						 'loc_5west_yn',
 						 'loc_8west_yn',
@@ -67,24 +82,33 @@ def clean_learner_data(survey_file):
 	return Learner
 
 
-def draw_all_charts(_Staff, _Learner, location: str):
+def draw_all_charts(_Staff: pd.DataFrame, _Learner: pd.DataFrame, location: str) -> None:
+	"""
+	Draws charts from Staff and Learner data sets
+	:param _Staff: pd.DataFrame, staff survey results
+	:param _Learner: pd.DataFrame, learner survey results
+	:param location: string representing location from which data arose
+	:return: None
+	"""
 	if not _Staff.empty:
-		fig = draw_experiences_bar_chart(_Staff, f'STAFF ({location}):')
+		fig = experiences_bar_chart(_Staff, f'STAFF ({location}):')
 		st.pyplot(fig)
 
-		fig = draw_inclusive_bar_chart(_Staff, f'STAFF ({location}):')
+		fig = inclusive_bar_chart(_Staff, f'STAFF ({location}):')
 		st.pyplot(fig)
 
 	if not _Learner.empty:
-		fig = draw_experiences_bar_chart(_Learner, f'LEARNERS ({location}):')
+		fig = experiences_bar_chart(_Learner, f'LEARNERS ({location}):')
 		st.pyplot(fig)
 
-		fig = draw_inclusive_and_clinical_bar_chart(_Learner, f'LEARNERS ({location}):')
+		fig = inclusive_and_clinical_bar_chart(_Learner, f'LEARNERS ({location}):')
 		st.pyplot(fig)
 
 
 def main():
-	# hide_streamlit_header_footer()
+	hide_streamlit_header_footer()
+
+	# Read in both survey files
 	staff_survey_file = st.file_uploader('Upload STAFF survey Excel file here', type=['xls', 'xlsx'])
 	learner_survey_file = st.file_uploader('Upload LEARNER survey Excel file here', type=['xls', 'xlsx'])
 
@@ -115,7 +139,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
-
-# TODO: Comment this file
-# TODO: Change names of functions in plotting_functions.py and docstrings

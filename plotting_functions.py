@@ -1,13 +1,14 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 
-def draw_experiences_bar_chart(Survey: pd.DataFrame, title_modifier: str):
+def experiences_bar_chart(Survey: pd.DataFrame, title_modifier: str) -> plt.Figure:
 	"""
-	Draw a bar chart representing experiences of bullying, discrimination and harassment over the last week
+	Return bar chart representing experiences of bullying, discrimination and harassment over the last week
 	:param Survey: Full survey dataframe
 	:param title_modifier: Modifier of the chart title
-	:return: None. Draws bar chart.
+	:return: matplotlib figure object
 	"""
 
 	# Prepare data
@@ -44,12 +45,12 @@ def draw_experiences_bar_chart(Survey: pd.DataFrame, title_modifier: str):
 	return ax.get_figure()
 
 
-def draw_inclusive_bar_chart(Survey: pd.DataFrame, title_modifier: str):
+def inclusive_bar_chart(Survey: pd.DataFrame, title_modifier: str) -> plt.Figure:
 	"""
-	Draw a bar chart representing feelings of inclusiveness over the last week
+	Return bar chart representing feelings of inclusiveness over the last week
 	:param Survey: Full survey dataframe
 	:param title_modifier: Modifier of the chart title
-	:return: None. Draws bar chart.
+	:return: matplotlib figure object
 	"""
 
 	# Prepare data
@@ -74,12 +75,12 @@ def draw_inclusive_bar_chart(Survey: pd.DataFrame, title_modifier: str):
 	return ax.get_figure()
 
 
-def draw_inclusive_and_clinical_bar_chart(Survey: pd.DataFrame, title_modifier: str):
+def inclusive_and_clinical_bar_chart(Survey: pd.DataFrame, title_modifier: str) -> plt.Figure:
 	"""
-	Draw a bar chart representing experience of clinical work and inclusiveness over the last week
+	Return bar chart representing experience of clinical work and inclusiveness over the last week
 	:param Survey: Full survey dataframe
 	:param title_modifier: Modifier of the chart title
-	:return: None. Draws bar chart.
+	:return: matplotlib Figure object
 	"""
 
 	# Prepare data
