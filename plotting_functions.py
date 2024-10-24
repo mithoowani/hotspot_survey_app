@@ -25,9 +25,11 @@ def experiences_bar_chart(Survey: pd.DataFrame, title_modifier: str) -> plt.Figu
 	exp_counts = exp_counts[['Never', 'Sometimes', 'Often']]
 	exp_pct = exp_counts.apply(lambda x: x / x.sum(), axis=1)  # normalized
 
-	# Draw stacked bar chart
 	colors = ['tab:green', 'tab:orange', 'tab:red']
-	ax = exp_pct.plot.bar(stacked=True, color=colors)
+
+	# Reinstatiate the figure and axis, and draw chart
+	fig, ax = plt.subplots()
+	exp_pct.plot.bar(stacked=True, color=colors, ax=ax)
 
 	ax.set_yticks(np.linspace(0, 1, 11))
 	ax.set_yticklabels((ax.get_yticks() * 100).astype('int64'))
@@ -42,7 +44,7 @@ def experiences_bar_chart(Survey: pd.DataFrame, title_modifier: str) -> plt.Figu
 	ax.set_title(chart_title, fontsize=15)
 	ax.set_ylabel('Percentage', fontsize=15)
 
-	return ax.get_figure()
+	return fig
 
 
 def inclusive_bar_chart(Survey: pd.DataFrame, title_modifier: str) -> plt.Figure:
@@ -56,23 +58,26 @@ def inclusive_bar_chart(Survey: pd.DataFrame, title_modifier: str) -> plt.Figure
 	# Prepare data
 	inclusive = Survey['inclusive'].astype('category')
 	inclusive = inclusive.cat.set_categories(['Always', 'Often', 'Sometimes', 'Never'])
-	incl_counts = inclusive.value_counts(normalize=True, sort=False) * 100  # Normalized
+	incl_counts = inclusive.value_counts(normalize=True, sort=False)  # Normalized
 	n_responses = len(inclusive)
 
-	# Bar chart for inclusive work environment
-	ax = incl_counts.plot.bar(
-		incl_counts,
-		color=['tab:green', 'tab:olive', 'tab:orange', 'tab:red'],
-		stacked=True)
+	# Reinstatiate the figure and axis, and draw chart
+	fig, ax = plt.subplots()
+	incl_counts.plot.bar(incl_counts,
+						 color=['tab:green', 'tab:olive', 'tab:orange', 'tab:red'],
+						 ax=ax)
 
 	chart_title = title_modifier + ' ' + f'The work environment feels inclusive (n={n_responses})'
+
+	ax.set_yticks(np.linspace(0, 1, 11))
+	ax.set_yticklabels((ax.get_yticks() * 100).astype('int64'))
 
 	ax.set_title(chart_title, fontsize=15)
 	ax.set_ylabel('Percentage', fontsize=15)
 	ax.grid(axis='y')
 	ax.set_xlabel('')
 
-	return ax.get_figure()
+	return fig
 
 
 def inclusive_and_clinical_bar_chart(Survey: pd.DataFrame, title_modifier: str) -> plt.Figure:
@@ -97,9 +102,11 @@ def inclusive_and_clinical_bar_chart(Survey: pd.DataFrame, title_modifier: str) 
 	exp_counts = exp_counts[['Always', 'Often', 'Sometimes', 'Never']]  # ensures the proper order is preserved
 	exp_pct = exp_counts.apply(lambda x: x / x.sum(), axis=1)  # normalized
 
-	# Draw stacked bar chart
 	colors = ['tab:green', 'tab:olive', 'tab:orange', 'tab:red']
-	ax = exp_pct.plot.bar(stacked=True, color=colors)
+
+	# Reinstatiate the figure and axis, and draw chart
+	fig, ax = plt.subplots()
+	exp_pct.plot.bar(stacked=True, color=colors, ax=ax)
 
 	ax.set_yticks(np.linspace(0, 1, 11))
 	ax.set_yticklabels((ax.get_yticks() * 100).astype('int64'))
@@ -117,4 +124,4 @@ def inclusive_and_clinical_bar_chart(Survey: pd.DataFrame, title_modifier: str) 
 
 	ax.set_ylabel('Percentage', fontsize=15)
 
-	return ax.get_figure()
+	return fig
