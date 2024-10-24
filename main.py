@@ -106,7 +106,7 @@ def draw_all_charts(_Staff: pd.DataFrame, _Learner: pd.DataFrame, location: str)
 
 
 def main():
-	hide_streamlit_header_footer()
+	hide_streamlit_header_footer()  # only needed for community hosting
 
 	# Read in both survey files
 	staff_survey_file = st.file_uploader('Upload STAFF survey Excel file here', type=['xls', 'xlsx'])
