@@ -91,22 +91,22 @@ def draw_all_charts(_Staff: pd.DataFrame, _Learner: pd.DataFrame, location: str)
 	:return: None
 	"""
 	if not _Staff.empty:
-		fig = experiences_bar_chart(_Staff, f'STAFF ({location}):')
-		st.pyplot(fig)
+		experiences_staff_fig = experiences_bar_chart(_Staff, f'STAFF ({location}):')
+		st.pyplot(experiences_staff_fig)
 
-		fig = inclusive_bar_chart(_Staff, f'STAFF ({location}):')
-		st.pyplot(fig)
+		inclusive_fig = inclusive_bar_chart(_Staff, f'STAFF ({location}):')
+		st.pyplot(inclusive_fig)
 
 	if not _Learner.empty:
-		fig = experiences_bar_chart(_Learner, f'LEARNERS ({location}):')
-		st.pyplot(fig)
+		experiences_learner_fig = experiences_bar_chart(_Learner, f'LEARNERS ({location}):')
+		st.pyplot(experiences_learner_fig)
 
-		fig = inclusive_and_clinical_bar_chart(_Learner, f'LEARNERS ({location}):')
-		st.pyplot(fig)
+		inclusive_clinical_fig = inclusive_and_clinical_bar_chart(_Learner, f'LEARNERS ({location}):')
+		st.pyplot(inclusive_clinical_fig)
 
 
 def main():
-	hide_streamlit_header_footer()
+	# hide_streamlit_header_footer()
 
 	# Read in both survey files
 	staff_survey_file = st.file_uploader('Upload STAFF survey Excel file here', type=['xls', 'xlsx'])
