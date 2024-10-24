@@ -58,7 +58,7 @@ def inclusive_bar_chart(Survey: pd.DataFrame, title_modifier: str) -> plt.Figure
 	# Prepare data
 	inclusive = Survey['inclusive'].astype('category')
 	inclusive = inclusive.cat.set_categories(['Always', 'Often', 'Sometimes', 'Never'])
-	incl_counts = inclusive.value_counts(normalize=True, sort=False)  # Normalized
+	incl_counts = inclusive.value_counts(normalize=True, sort=False) * 100  # Normalized
 	n_responses = len(inclusive)
 
 	# Reinstatiate the figure and axis, and draw chart
@@ -68,9 +68,6 @@ def inclusive_bar_chart(Survey: pd.DataFrame, title_modifier: str) -> plt.Figure
 						 ax=ax)
 
 	chart_title = title_modifier + ' ' + f'The work environment feels inclusive (n={n_responses})'
-
-	ax.set_yticks(np.linspace(0, 1, 11))
-	ax.set_yticklabels((ax.get_yticks() * 100).astype('int64'))
 
 	ax.set_title(chart_title, fontsize=15)
 	ax.set_ylabel('Percentage', fontsize=15)
